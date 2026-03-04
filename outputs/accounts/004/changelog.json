@@ -5,8 +5,8 @@
     "primary_contact": "Sandra Peel",
     "business_hours": {
       "days": "Monday-Friday",
-      "start": "7am",
-      "end": "6pm",
+      "start": "07:00",
+      "end": "18:00",
       "timezone": "Mountain",
       "exceptions": null
     },
@@ -53,11 +53,13 @@
     ],
     "after_hours_flow_summary": "Greet after-hours. Ask purpose. Confirm emergency. Emergency: collect name/number/address \u2192 transfer to 602-555-0404. Fail: promise callback within 15 minutes. Non-emergency: collect details, confirm next-business-day followup.",
     "office_hours_flow_summary": "Greet caller. Ask purpose. Collect name and number. Route emergency to 602-555-0404, non-emergency to scheduling.",
-    "questions_or_unknowns": [],
+    "questions_or_unknowns": [
+      "Office address not found in transcript \u2014 needs confirmation"
+    ],
     "notes": "Auto-extracted from transcript. Review emergency_definition for completeness.",
     "_meta": {
       "version": "v2",
-      "generated_at": "2026-03-04T22:46:46.614162",
+      "generated_at": "2026-03-05T01:50:56.203446",
       "pipeline": "Clara Automation Pipeline"
     }
   },
@@ -109,5 +111,7 @@
     "Client: New rule: never create jobs for competitor accounts. If they mention another HVAC company handled it previously, just take a message."
   ],
   "resolved_unknowns": [],
-  "still_unknown": []
+  "still_unknown": [
+    "Office address not found in transcript \u2014 needs confirmation"
+  ]
 }

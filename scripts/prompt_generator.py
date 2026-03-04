@@ -10,38 +10,39 @@ import sys
 
 def generate_agent_spec(memo: dict, version: str = "v1") -> dict:
     company     = memo.get("company_name", "the company")
-    tz          = memo.get("business_hours", {}).get("timezone", "Central")
-    days        = memo.get("business_hours", {}).get("days", "Monday-Friday")
-    start       = memo.get("business_hours", {}).get("start", "08:00")
-    end         = memo.get("business_hours", {}).get("end", "17:00")
-    emergencies = memo.get("emergency_definition", [])
-    routing     = memo.get("emergency_routing_rules", {})
-    primary     = routing.get("primary", {})
-    secondary   = routing.get("secondary", {})
-    tertiary    = routing.get("tertiary", {})
+    tz          = (memo.get("business_hours") or {}).get("timezone", "Central")
+    days        = (memo.get("business_hours") or {}).get("days", "Monday-Friday")
+    start       = (memo.get("business_hours") or {}).get("start", "08:00")
+    end         = (memo.get("business_hours") or {}).get("end", "17:00")
+    emergencies = memo.get("emergency_definition") or []
+    routing     = memo.get("emergency_routing_rules") or {}
+    primary     = routing.get("primary") or {}
+    secondary   = routing.get("secondary") or {}
+    tertiary    = routing.get("tertiary") or {}
     timeout     = routing.get("transfer_timeout_seconds", 30)
     callback    = routing.get("fallback_message", "Someone will call you back within 15 minutes.")
-    constraints = memo.get("integration_constraints", [])
+    constraints = memo.get("integration_constraints") or []
+    address     = memo.get("office_address")
 
     primary_phone   = primary.get("phone") or "dispatch line"
     secondary_phone = secondary.get("phone") or "backup line"
     tertiary_phone  = tertiary.get("phone")
 
-    emergency_examples = ", ".join(emergencies[:3]) if emergencies else "active fire, system failure, emergency leak"
+    emergency_examples = (
+        ", ".join(emergencies[:3]) if emergencies
+        else "active fire, system failure, emergency leak"
+    )
 
-    retry_steps = f"Step 1: Transfer to {primary_phone}, wait {timeout} seconds."
-    if secondary_phone:
-        retry_steps += f" Step 2: If no answer, try {secondary_phone}."
-    if tertiary_phone:
-        retry_steps += f" Step 3: If still no answer, try {tertiary_phone}."
-    retry_steps += f" Final: {callback}"
+    constraint_rules = ""
+    if constraints:
+        constraint_rules = "\n" + "\n".join(f"- NEVER: {c}" for c in constraints)
 
     system_prompt = f"""You are Clara, the virtual assistant for {company}. You are warm, professional, and efficient. You never mention that you are an AI, and you never reference any internal tools or systems.
 
 === BUSINESS HOURS FLOW ({days}, {start}–{end} {tz}) ===
 
 1. GREET: "Thank you for calling {company}, this is Clara. How can I help you today?"
-2. LISTEN to caller's reason for calling.
+2. ASK PURPOSE: Listen carefully to the caller's reason for calling.
 3. COLLECT INFO: "May I get your name and the best callback number for you?"
 4. DETERMINE: Is this an emergency or non-emergency?
    - Emergency examples: {emergency_examples}
@@ -50,7 +51,7 @@ def generate_agent_spec(memo: dict, version: str = "v1") -> dict:
    - Attempt transfer to dispatch.
    - If transfer fails: "{callback} I sincerely apologize for the inconvenience."
 6. IF NON-EMERGENCY:
-   - Collect brief description of the issue.
+   - Collect a brief description of the issue.
    - Say: "I've noted your request and someone from our team will follow up with you shortly."
 7. CLOSE: "Is there anything else I can help you with today?" → If no: "Thank you for calling {company}. Have a great day!"
 
@@ -73,10 +74,11 @@ def generate_agent_spec(memo: dict, version: str = "v1") -> dict:
 
 === IMPORTANT RULES ===
 - NEVER mention AI, automation, function calls, or internal systems.
-- NEVER create service jobs automatically.{(' ' + ' '.join(constraints)) if constraints else ''}
-- ALWAYS confirm caller information before transferring.
-- ALWAYS give the callback promise if transfer fails.
+- NEVER create service jobs automatically.{constraint_rules}
+- ALWAYS confirm caller name and number before attempting any transfer.
+- ALWAYS deliver the callback promise if transfer fails.
 - Keep responses concise — do not ask unnecessary questions.
+- Do not mention tool use, webhooks, or any automation to the caller.
 """
 
     return {
@@ -87,29 +89,52 @@ def generate_agent_spec(memo: dict, version: str = "v1") -> dict:
             "company_name": company,
             "timezone": tz,
             "business_hours_description": f"{days}, {start}–{end} {tz}",
+            "office_address": address,
             "emergency_examples": emergency_examples,
             "primary_transfer_number": primary_phone,
             "secondary_transfer_number": secondary_phone,
             "tertiary_transfer_number": tertiary_phone,
             "transfer_timeout_seconds": timeout,
-            "callback_promise": callback
+            "callback_promise": callback,
+        },
+        # FIX: added tool_invocation_placeholders — required by assignment spec.
+        # Clara uses internal routing logic; callers are never told about these.
+        "tool_invocation_placeholders": {
+            "transfer_call": {
+                "description": "Initiate call transfer to the specified phone number",
+                "parameters": ["target_phone", "timeout_seconds"],
+                "caller_facing": False,
+                "note": "Never mention this to the caller",
+            },
+            "log_call_outcome": {
+                "description": "Log the call result (transferred, voicemail, callback scheduled)",
+                "parameters": ["account_id", "outcome", "caller_name", "caller_phone"],
+                "caller_facing": False,
+                "note": "Never mention this to the caller",
+            },
+            "check_business_hours": {
+                "description": "Determine whether the current time falls within business hours",
+                "parameters": ["timezone", "business_hours"],
+                "caller_facing": False,
+                "note": "Used to route between business-hours and after-hours flows",
+            },
         },
         "system_prompt": system_prompt,
         "call_transfer_protocol": {
             "step1": f"Transfer to {primary_phone}, wait {timeout} seconds",
             "step2": f"If no answer, transfer to {secondary_phone}",
             "step3": f"If still no answer, transfer to {tertiary_phone}" if tertiary_phone else "N/A",
-            "final_fallback": callback
+            "final_fallback": callback,
         },
         "fallback_protocol": callback,
         "integration_notes": constraints if constraints else ["No special integration constraints noted"],
         "do_not_do": [
             "Never mention AI or automation to callers",
-            "Never mention function calls or internal tools",
+            "Never mention function calls, tools, or internal systems",
             "Never create service jobs automatically",
             "Never transfer without collecting caller name and number first",
             "Never promise a specific technician name",
-        ]
+        ],
     }
 
 
