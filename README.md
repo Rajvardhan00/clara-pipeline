@@ -59,7 +59,6 @@ clara_pipeline/
 3. Click **"Create API Key"**
 4. Copy the key (looks like: `AIzaSy...`)
 
-> ✅ This is 100% free. No credit card needed.
 
 ---
 
@@ -84,7 +83,6 @@ Open a terminal (Command Prompt or PowerShell) and run:
 set GEMINI_API_KEY=your_actual_key_here
 ```
 
-> ⚠️ Do this in the SAME terminal window where you run the pipeline.
 
 ---
 
