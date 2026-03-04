@@ -1,0 +1,35 @@
+DEMO CALL TRANSCRIPT - Account 001
+Company: BlazeSafe Fire Protection
+Date: 2024-01-15
+
+Sales Rep: Hi, thanks for joining today. Can you tell me a bit about your business?
+
+Client (John Matthews): Sure, we're BlazeSafe Fire Protection. We handle fire sprinkler installation, inspection, and emergency repair across the Dallas area. We get a ton of calls - maybe 80-100 a day.
+
+Sales Rep: What's your biggest pain point with calls right now?
+
+Client: We miss emergency calls after hours. Our on-call tech doesn't always pick up and customers freak out. Also during the day our office staff is overwhelmed.
+
+Sales Rep: What counts as an emergency for you?
+
+Client: Sprinkler head leaking or burst, fire alarm going off, anything with active water or fire. That needs someone on the phone immediately.
+
+Sales Rep: And non-emergencies?
+
+Client: Scheduling inspections, quotes, general questions - those can wait till next day.
+
+Sales Rep: What are your business hours?
+
+Client: Monday through Friday, 8am to 5pm Central time. We're closed weekends.
+
+Sales Rep: Who do we transfer emergency calls to?
+
+Client: First try our dispatch line at 214-555-0101. If no answer, try the on-call technician at 214-555-0199.
+
+Sales Rep: What systems do you use?
+
+Client: We use ServiceTrade for job management. But don't create sprinkler emergency jobs automatically - our dispatcher handles that manually.
+
+Sales Rep: Got it. Anything else?
+
+Client: If a transfer fails, please tell the customer someone will call back within 15 minutes. That's our promise.

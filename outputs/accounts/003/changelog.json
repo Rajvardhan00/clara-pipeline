@@ -1,0 +1,99 @@
+{
+  "v2_memo": {
+    "account_id": "003",
+    "company_name": "VoltGuard Electrical Services",
+    "primary_contact": "Derek Kim",
+    "business_hours": {
+      "days": "Monday-Friday",
+      "start": "8am",
+      "end": "6pm",
+      "timezone": "Central",
+      "exceptions": null
+    },
+    "office_address": null,
+    "services_supported": [
+      "Electrical"
+    ],
+    "emergency_definition": [
+      "Client: After-hours electrical emergencies - power outages, panel fires, sparking wires. These need immediate response. During the day we just need someone to route calls to the right department.",
+      "Client: Active sparking or arcing, electrical fire, complete power outage in a facility, exposed live wires. Anything that poses immediate danger."
+    ],
+    "emergency_routing_rules": {
+      "primary": {
+        "name": "Dispatch",
+        "phone": "512-555-0300"
+      },
+      "secondary": {
+        "name": "On-call / Backup",
+        "phone": "512-555-0322"
+      },
+      "tertiary": {
+        "name": "Additional Fallback",
+        "phone": null
+      },
+      "transfer_timeout_seconds": 30,
+      "fallback_message": "Someone will call you back within 20-minute."
+    },
+    "non_emergency_routing_rules": {
+      "action": "Collect name, number, and description. Confirm next-business-day followup.",
+      "notes": null
+    },
+    "call_transfer_rules": {
+      "timeout_seconds": 30,
+      "retry_order": [
+        "512-555-0300",
+        "512-555-0322"
+      ],
+      "fail_action": "Someone will call you back within 20-minute."
+    },
+    "integration_constraints": [
+      "Client: We use ServiceMax. No special restrictions on job creation.",
+      "Client: Actually add one: don't create emergency job tickets automatically. Only for non-emergency scheduling."
+    ],
+    "after_hours_flow_summary": "Greet after-hours. Ask purpose. Confirm emergency. Emergency: collect name/number/address \u2192 transfer to 512-555-0303. Fail: promise callback within 20 minutes. Non-emergency: collect details, confirm next-business-day followup.",
+    "office_hours_flow_summary": "Greet caller. Ask purpose. Collect name and number. Route emergency to 512-555-0303, non-emergency to scheduling.",
+    "questions_or_unknowns": [],
+    "notes": "Auto-extracted from transcript. Review emergency_definition for completeness.",
+    "_meta": {
+      "version": "v2",
+      "generated_at": "2026-03-04T22:46:46.575649",
+      "pipeline": "Clara Automation Pipeline"
+    }
+  },
+  "changelog": [
+    {
+      "field": "business_hours.days",
+      "old_value": "Monday through Friday",
+      "new_value": "Monday-Friday",
+      "reason": "Confirmed/updated during onboarding call"
+    },
+    {
+      "field": "emergency_routing_rules.primary.phone",
+      "old_value": "512-555-0303",
+      "new_value": "512-555-0300",
+      "reason": "Phone number updated during onboarding"
+    },
+    {
+      "field": "integration_constraints",
+      "old_value": [
+        "Client: We use ServiceMax. No special restrictions on job creation."
+      ],
+      "new_value": [
+        "Client: We use ServiceMax. No special restrictions on job creation.",
+        "Client: Actually add one: don't create emergency job tickets automatically. Only for non-emergency scheduling."
+      ],
+      "reason": "New constraints added during onboarding: [\"Client: Actually add one: don't create emergency job tickets automatically. Only for non-emergency scheduling.\"]"
+    },
+    {
+      "field": "fallback_message",
+      "old_value": "Someone will call you back within 20 minutes.",
+      "new_value": "Someone will call you back within 20-minute.",
+      "reason": "Callback promise updated during onboarding"
+    }
+  ],
+  "new_constraints": [
+    "Client: Actually add one: don't create emergency job tickets automatically. Only for non-emergency scheduling."
+  ],
+  "resolved_unknowns": [],
+  "still_unknown": []
+}

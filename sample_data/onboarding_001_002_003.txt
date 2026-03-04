@@ -1,0 +1,84 @@
+ONBOARDING CALL TRANSCRIPT - Account 001 (BlazeSafe Fire Protection)
+Date: 2024-01-22
+
+Onboarding Rep: Let's confirm everything for your Clara setup.
+
+Client (John Matthews): Sure.
+
+Rep: Business hours - Monday to Friday 8am to 5pm Central?
+
+Client: Actually, we added Thursday evening hours. So Monday, Tuesday, Wednesday, Friday 8am-5pm, Thursday 8am-7pm. Still closed weekends.
+
+Rep: Emergency definition - sprinkler leak, burst, fire alarm, active water or fire?
+
+Client: Add one more: if they say they smell smoke, that's also an emergency.
+
+Rep: Dispatch at 214-555-0101, on-call at 214-555-0199?
+
+Client: The on-call number changed. It's now 214-555-0177. Also add a third fallback - our owner, James, at 214-555-0155. Try him if both fail.
+
+Rep: ServiceTrade - no auto-creation for sprinkler emergency jobs?
+
+Client: Correct. Also, don't create inspection jobs automatically either. Everything goes through our coordinator.
+
+Rep: Transfer fail message - callback within 15 minutes?
+
+Client: Yes, keep that.
+
+Rep: Any new rules?
+
+Client: Yes - if a caller mentions they're a new customer, collect their company name and address before transferring. Also, if the transfer times out after 60 seconds, try the next number automatically.
+
+---
+
+ONBOARDING CALL TRANSCRIPT - Account 002 (ShieldAlarm Contractors)
+Date: 2024-01-23
+
+Rep: Confirming your setup.
+
+Client (Maria Torres): Go ahead.
+
+Rep: Hours - Mon-Fri 7:30am to 5:30pm Central?
+
+Client: Add Saturday 8am to 12pm. We decided to make it official.
+
+Rep: Emergency line 713-555-0202, then Mike at 713-555-0211?
+
+Client: Mike left. New backup is Sarah at 713-555-0233. Keep the main number the same.
+
+Rep: ServiceTrade - create jobs for non-emergencies only?
+
+Client: Yes. And for non-emergency service requests, collect equipment type before creating the job.
+
+Rep: 30-minute callback assurance?
+
+Client: Change to 20 minutes. We improved our response time.
+
+Rep: New transfer timeout rule?
+
+Client: 45 seconds on primary, then immediately try backup. If backup also fails after 45 seconds, give the 20-minute callback message.
+
+---
+
+ONBOARDING CALL TRANSCRIPT - Account 003 (VoltGuard Electrical)
+Date: 2024-01-24
+
+Rep: Let's lock in your config.
+
+Client (Derek Kim): Ready.
+
+Rep: Mon-Fri 8am-6pm Central?
+
+Client: Add Friday extended to 8pm. So Mon-Thu 8-6, Friday 8-8.
+
+Rep: Emergency dispatch 512-555-0303, backup 512-555-0322?
+
+Client: Both confirmed. Add one more: after-hours answering service at 512-555-0300. Try that first before our dispatch.
+
+Rep: ServiceMax, no restrictions?
+
+Client: Actually add one: don't create emergency job tickets automatically. Only for non-emergency scheduling.
+
+Rep: 20-minute callback?
+
+Client: Change to 15 minutes.

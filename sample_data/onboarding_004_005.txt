@@ -1,0 +1,59 @@
+ONBOARDING CALL TRANSCRIPT - Account 004 (ArcticFlow HVAC)
+Date: 2024-01-25
+
+Rep: Confirming ArcticFlow setup.
+
+Client (Sandra Peel): Ready to go.
+
+Rep: Mon-Sat 7am-6pm Mountain?
+
+Client: Add Sunday for data center clients only, 9am-3pm Mountain. So full week but Sunday limited hours.
+
+Rep: Emergency - cooling failure in data centers, HVAC down in medical facilities, refrigerant leak?
+
+Client: Yes. Add one more: if a caller says a server room temperature is above 85 degrees, treat as emergency.
+
+Rep: Dispatch 602-555-0404, supervisor 602-555-0411?
+
+Client: Add a third: our 24/7 emergency contractor partner at 602-555-0499. Try them last if both our numbers fail.
+
+Rep: ServiceTitan, no restrictions?
+
+Client: New rule: never create jobs for competitor accounts. If they mention another HVAC company handled it previously, just take a message.
+
+Rep: 15-minute callback?
+
+Client: Keep it.
+
+---
+
+ONBOARDING CALL TRANSCRIPT - Account 005 (SafeNet Sprinkler Systems)
+Date: 2024-01-26
+
+Rep: Let's finalize SafeNet.
+
+Client (Brian Cho): Let's do it.
+
+Rep: Mon-Fri 8am-5pm Pacific?
+
+Client: Add Saturday 8am-2pm. We've been getting weekend calls.
+
+Rep: Emergency - active discharge, burst pipe, water damage, suppression failure?
+
+Client: Also add: if they say the building fire panel is showing a fault, that's an emergency.
+
+Rep: Phone tree 310-555-0505, field supervisor 310-555-0511?
+
+Client: New field supervisor number: 310-555-0522. Keep phone tree the same.
+
+Rep: No auto-creation of sprinkler discharge jobs?
+
+Client: Expand that: don't auto-create ANY job types. We want everything manually dispatched. Clara just collects and routes.
+
+Rep: 10-minute callback?
+
+Client: Keep it. That's our competitive edge.
+
+Rep: New rule?
+
+Client: If it's after midnight Pacific, don't attempt transfers - just collect name, number, and brief description, and assure callback first thing in the morning. Our techs need to sleep.

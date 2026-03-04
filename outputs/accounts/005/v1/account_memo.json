@@ -1,0 +1,61 @@
+{
+  "account_id": "005",
+  "company_name": "SafeNet Sprinkler Systems",
+  "primary_contact": "Brian Cho",
+  "business_hours": {
+    "days": "Monday through Friday",
+    "start": "8am",
+    "end": "5pm",
+    "timezone": "Pacific",
+    "exceptions": null
+  },
+  "office_address": null,
+  "services_supported": [
+    "Fire Sprinkler",
+    "Installation"
+  ],
+  "emergency_definition": [
+    "Client: Active sprinkler discharge, burst pipe, visible water damage from sprinkler, fire suppression system failure.",
+    "Client: Never create sprinkler discharge jobs in our system automatically. Dispatcher must do it."
+  ],
+  "emergency_routing_rules": {
+    "primary": {
+      "name": "Dispatch",
+      "phone": "310-555-0505"
+    },
+    "secondary": {
+      "name": "On-call / Backup",
+      "phone": "310-555-0511"
+    },
+    "tertiary": {
+      "name": "Additional Fallback",
+      "phone": null
+    },
+    "transfer_timeout_seconds": 30,
+    "fallback_message": "Someone will call you back within 15 minutes."
+  },
+  "non_emergency_routing_rules": {
+    "action": "Collect name, number, and description. Confirm next-business-day followup.",
+    "notes": null
+  },
+  "call_transfer_rules": {
+    "timeout_seconds": 30,
+    "retry_order": [
+      "310-555-0505",
+      "310-555-0511"
+    ],
+    "fail_action": "Apologize and promise callback within 15 minutes"
+  },
+  "integration_constraints": [
+    "Client: Never create sprinkler discharge jobs in our system automatically. Dispatcher must do it."
+  ],
+  "after_hours_flow_summary": "Greet after-hours. Ask purpose. Confirm emergency. Emergency: collect name/number/address \u2192 transfer to 310-555-0505. Fail: promise callback within 15 minutes. Non-emergency: collect details, confirm next-business-day followup.",
+  "office_hours_flow_summary": "Greet caller. Ask purpose. Collect name and number. Route emergency to 310-555-0505, non-emergency to scheduling.",
+  "questions_or_unknowns": [],
+  "notes": "Auto-extracted from transcript. Review emergency_definition for completeness.",
+  "_meta": {
+    "version": "v1",
+    "generated_at": "2026-03-04T22:46:46.475825",
+    "pipeline": "Clara Automation Pipeline"
+  }
+}

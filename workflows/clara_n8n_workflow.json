@@ -1,0 +1,143 @@
+{
+  "name": "Clara AI Pipeline",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start-node",
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// ── Node: Ingest Transcript File ─────────────────────────\n// Reads transcript text from input and assigns account_id\n// In production: connect to webhook or file trigger\n\nconst fs = require('fs');\nconst path = require('path');\n\nconst inputFile = $input.item.json.file_path || '/data/sample_transcript.txt';\nconst accountId = $input.item.json.account_id || '001';\nconst pipelineType = $input.item.json.pipeline || 'demo'; // 'demo' or 'onboarding'\n\nlet transcript = '';\ntry {\n  transcript = fs.readFileSync(inputFile, 'utf8');\n} catch(e) {\n  transcript = $input.item.json.transcript_text || '';\n}\n\nreturn [{\n  json: {\n    account_id: accountId,\n    pipeline_type: pipelineType,\n    transcript: transcript,\n    ingested_at: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "ingest-node",
+      "name": "Ingest Transcript",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "={{$env.GEMINI_API_KEY}}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"Extract structured account data from this transcript and return ONLY valid JSON with fields: account_id, company_name, business_hours, emergency_definition, emergency_routing_rules, non_emergency_routing_rules, integration_constraints, after_hours_flow_summary, office_hours_flow_summary, questions_or_unknowns, notes.\\n\\nTRANSCRIPT:\\n{{ $json.transcript }}\"\n        }\n      ]\n    }\n  ]\n}"
+      },
+      "id": "gemini-extract-node",
+      "name": "Gemini — Extract Account Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Parse Gemini response into structured JSON\nconst raw = $input.item.json.candidates[0].content.parts[0].text;\nconst cleaned = raw.replace(/^```json\\s*/,'').replace(/^```\\s*/,'').replace(/\\s*```$/,'').trim();\n\nlet memo;\ntry {\n  memo = JSON.parse(cleaned);\n} catch(e) {\n  memo = { error: 'Parse failed', raw: raw };\n}\n\nreturn [{\n  json: {\n    account_id: $input.item.json.account_id || memo.account_id,\n    pipeline_type: $input.item.json.pipeline_type,\n    memo: memo\n  }\n}];"
+      },
+      "id": "parse-memo-node",
+      "name": "Parse Account Memo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "={{$env.GEMINI_API_KEY}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"Generate a Clara AI voice agent spec as valid JSON with: agent_name, voice_style, version (v1), key_variables, system_prompt (covering business hours flow AND after hours flow), call_transfer_protocol, fallback_protocol, integration_notes, do_not_do.\\n\\nACCOUNT MEMO:\\n{{ JSON.stringify($json.memo, null, 2) }}\"\n        }\n      ]\n    }\n  ]\n}"
+      },
+      "id": "gemini-spec-node",
+      "name": "Gemini — Generate Agent Spec",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Parse agent spec and save to outputs folder\nconst fs = require('fs');\nconst path = require('path');\n\nconst raw = $input.item.json.candidates[0].content.parts[0].text;\nconst cleaned = raw.replace(/^```json\\s*/,'').replace(/^```\\s*/,'').replace(/\\s*```$/,'').trim();\n\nlet spec;\ntry {\n  spec = JSON.parse(cleaned);\n} catch(e) {\n  spec = { error: 'Parse failed', raw };\n}\n\nconst accountId = $('parse-memo-node').item.json.account_id;\nconst version = 'v1';\nconst outputDir = `/data/outputs/accounts/${accountId}/${version}`;\n\ntry {\n  fs.mkdirSync(outputDir, { recursive: true });\n  fs.writeFileSync(`${outputDir}/account_memo.json`, JSON.stringify($('parse-memo-node').item.json.memo, null, 2));\n  fs.writeFileSync(`${outputDir}/agent_spec.json`, JSON.stringify(spec, null, 2));\n} catch(e) {\n  console.log('File write error:', e.message);\n}\n\nreturn [{\n  json: {\n    account_id: accountId,\n    version: version,\n    memo_saved: true,\n    spec_saved: true,\n    agent_name: spec.agent_name || 'Unknown'\n  }\n}];"
+      },
+      "id": "save-outputs-node",
+      "name": "Save Outputs to Storage",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [1340, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.pipeline_type}}",
+              "operation": "equals",
+              "value2": "onboarding"
+            }
+          ]
+        }
+      },
+      "id": "route-node",
+      "name": "Route: Demo or Onboarding?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [680, 520]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [[{"node": "Ingest Transcript", "type": "main", "index": 0}]]
+    },
+    "Ingest Transcript": {
+      "main": [[{"node": "Gemini — Extract Account Data", "type": "main", "index": 0}]]
+    },
+    "Gemini — Extract Account Data": {
+      "main": [[{"node": "Parse Account Memo", "type": "main", "index": 0}]]
+    },
+    "Parse Account Memo": {
+      "main": [[{"node": "Gemini — Generate Agent Spec", "type": "main", "index": 0}]]
+    },
+    "Gemini — Generate Agent Spec": {
+      "main": [[{"node": "Save Outputs to Storage", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": ["clara", "pipeline", "voice-agent"],
+  "meta": {
+    "instanceId": "clara-pipeline-v1"
+  }
+}

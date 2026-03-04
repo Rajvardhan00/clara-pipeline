@@ -1,0 +1,31 @@
+DEMO CALL TRANSCRIPT - Account 003
+Company: VoltGuard Electrical Services
+Date: 2024-01-17
+
+Sales Rep: Hi, welcome! Tell us about VoltGuard.
+
+Client (Derek Kim): We're an electrical contractor serving the Austin area. Commercial and industrial clients. We do about 60 calls a day.
+
+Sales Rep: What's your call handling challenge?
+
+Client: After-hours electrical emergencies - power outages, panel fires, sparking wires. These need immediate response. During the day we just need someone to route calls to the right department.
+
+Sales Rep: Emergency definition?
+
+Client: Active sparking or arcing, electrical fire, complete power outage in a facility, exposed live wires. Anything that poses immediate danger.
+
+Sales Rep: Business hours?
+
+Client: Monday through Friday 8am to 6pm, Central time.
+
+Sales Rep: Emergency routing after hours?
+
+Client: First call dispatch at 512-555-0303. Backup is senior tech at 512-555-0322.
+
+Sales Rep: Any integrations or special rules?
+
+Client: We use ServiceMax. No special restrictions on job creation.
+
+Sales Rep: Transfer fail message?
+
+Client: Tell them an electrician will call back within 20 minutes.

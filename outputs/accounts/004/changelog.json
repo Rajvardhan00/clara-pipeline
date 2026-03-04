@@ -1,0 +1,113 @@
+{
+  "v2_memo": {
+    "account_id": "004",
+    "company_name": "ArcticFlow HVAC",
+    "primary_contact": "Sandra Peel",
+    "business_hours": {
+      "days": "Monday-Friday",
+      "start": "7am",
+      "end": "6pm",
+      "timezone": "Mountain",
+      "exceptions": null
+    },
+    "office_address": null,
+    "services_supported": [
+      "HVAC"
+    ],
+    "emergency_definition": [
+      "Client: Data center clients call at all hours if cooling fails. That's a true emergency. Regular HVAC issues can wait.",
+      "Client: Cooling failure in a data center, complete HVAC system down in a hospital or medical facility, refrigerant leak. Those are emergencies.",
+      "Client: Yes. Add one more: if a caller says a server room temperature is above 85 degrees, treat as emergency."
+    ],
+    "emergency_routing_rules": {
+      "primary": {
+        "name": "Dispatch",
+        "phone": "602-555-0499"
+      },
+      "secondary": {
+        "name": "On-call / Backup",
+        "phone": "602-555-0411"
+      },
+      "tertiary": {
+        "name": "Additional Fallback",
+        "phone": null
+      },
+      "transfer_timeout_seconds": 30,
+      "fallback_message": "Someone will call you back within 15-minute."
+    },
+    "non_emergency_routing_rules": {
+      "action": "Collect name, number, and description. Confirm next-business-day followup.",
+      "notes": null
+    },
+    "call_transfer_rules": {
+      "timeout_seconds": 30,
+      "retry_order": [
+        "602-555-0499",
+        "602-555-0411"
+      ],
+      "fail_action": "Someone will call you back within 15-minute."
+    },
+    "integration_constraints": [
+      "Client: We use ServiceTitan. No restrictions.",
+      "Client: New rule: never create jobs for competitor accounts. If they mention another HVAC company handled it previously, just take a message."
+    ],
+    "after_hours_flow_summary": "Greet after-hours. Ask purpose. Confirm emergency. Emergency: collect name/number/address \u2192 transfer to 602-555-0404. Fail: promise callback within 15 minutes. Non-emergency: collect details, confirm next-business-day followup.",
+    "office_hours_flow_summary": "Greet caller. Ask purpose. Collect name and number. Route emergency to 602-555-0404, non-emergency to scheduling.",
+    "questions_or_unknowns": [],
+    "notes": "Auto-extracted from transcript. Review emergency_definition for completeness.",
+    "_meta": {
+      "version": "v2",
+      "generated_at": "2026-03-04T22:46:46.614162",
+      "pipeline": "Clara Automation Pipeline"
+    }
+  },
+  "changelog": [
+    {
+      "field": "business_hours.days",
+      "old_value": "Monday through Saturday",
+      "new_value": "Monday-Friday",
+      "reason": "Confirmed/updated during onboarding call"
+    },
+    {
+      "field": "emergency_routing_rules.primary.phone",
+      "old_value": "602-555-0404",
+      "new_value": "602-555-0499",
+      "reason": "Phone number updated during onboarding"
+    },
+    {
+      "field": "emergency_definition",
+      "old_value": [
+        "Client: Data center clients call at all hours if cooling fails. That's a true emergency. Regular HVAC issues can wait.",
+        "Client: Cooling failure in a data center, complete HVAC system down in a hospital or medical facility, refrigerant leak. Those are emergencies."
+      ],
+      "new_value": [
+        "Client: Data center clients call at all hours if cooling fails. That's a true emergency. Regular HVAC issues can wait.",
+        "Client: Cooling failure in a data center, complete HVAC system down in a hospital or medical facility, refrigerant leak. Those are emergencies.",
+        "Client: Yes. Add one more: if a caller says a server room temperature is above 85 degrees, treat as emergency."
+      ],
+      "reason": "New emergency triggers added from onboarding: ['Client: Yes. Add one more: if a caller says a server room temperature is above 85 degrees, treat as emergency.']"
+    },
+    {
+      "field": "integration_constraints",
+      "old_value": [
+        "Client: We use ServiceTitan. No restrictions."
+      ],
+      "new_value": [
+        "Client: We use ServiceTitan. No restrictions.",
+        "Client: New rule: never create jobs for competitor accounts. If they mention another HVAC company handled it previously, just take a message."
+      ],
+      "reason": "New constraints added during onboarding: ['Client: New rule: never create jobs for competitor accounts. If they mention another HVAC company handled it previously, just take a message.']"
+    },
+    {
+      "field": "fallback_message",
+      "old_value": "Someone will call you back within 15 minutes.",
+      "new_value": "Someone will call you back within 15-minute.",
+      "reason": "Callback promise updated during onboarding"
+    }
+  ],
+  "new_constraints": [
+    "Client: New rule: never create jobs for competitor accounts. If they mention another HVAC company handled it previously, just take a message."
+  ],
+  "resolved_unknowns": [],
+  "still_unknown": []
+}

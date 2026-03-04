@@ -1,0 +1,65 @@
+DEMO CALL TRANSCRIPT - Account 004
+Company: ArcticFlow HVAC
+Date: 2024-01-18
+
+Sales Rep: Tell me about ArcticFlow.
+
+Client (Sandra Peel): We do commercial HVAC in Phoenix. Mostly large office buildings and data centers. Around 50 calls a day.
+
+Sales Rep: What's your call pain point?
+
+Client: Data center clients call at all hours if cooling fails. That's a true emergency. Regular HVAC issues can wait.
+
+Sales Rep: How do you define emergency?
+
+Client: Cooling failure in a data center, complete HVAC system down in a hospital or medical facility, refrigerant leak. Those are emergencies.
+
+Sales Rep: Business hours?
+
+Client: Monday through Saturday, 7am to 6pm, Mountain time.
+
+Sales Rep: Emergency routing?
+
+Client: Try main dispatch 602-555-0404. If no answer, try on-call supervisor at 602-555-0411.
+
+Sales Rep: Integrations?
+
+Client: We use ServiceTitan. No restrictions.
+
+Sales Rep: Transfer fail?
+
+Client: Tell them our emergency team is being paged and will call within 15 minutes.
+
+---
+
+DEMO CALL TRANSCRIPT - Account 005
+Company: SafeNet Sprinkler Systems
+Date: 2024-01-19
+
+Sales Rep: Hi, tell me about SafeNet.
+
+Client (Brian Cho): We install and service fire sprinkler systems in Los Angeles. High volume - about 120 calls a day.
+
+Sales Rep: Main challenge?
+
+Client: We get slammed. Need to triage emergencies from routine requests. Our staff can't keep up.
+
+Sales Rep: Emergency definition?
+
+Client: Active sprinkler discharge, burst pipe, visible water damage from sprinkler, fire suppression system failure.
+
+Sales Rep: Business hours?
+
+Client: Monday through Friday 8am to 5pm, Pacific time.
+
+Sales Rep: Emergency routing?
+
+Client: Phone tree at 310-555-0505. If no answer after 30 seconds, try field supervisor at 310-555-0511.
+
+Sales Rep: Special rules?
+
+Client: Never create sprinkler discharge jobs in our system automatically. Dispatcher must do it.
+
+Sales Rep: Transfer fail?
+
+Client: Tell them someone calls back in 10 minutes. We pride ourselves on fast response.

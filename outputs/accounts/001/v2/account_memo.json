@@ -1,0 +1,65 @@
+{
+  "account_id": "001",
+  "company_name": "BlazeSafe Fire Protection",
+  "primary_contact": "John Matthews",
+  "business_hours": {
+    "days": "Monday to Friday",
+    "start": "8am",
+    "end": "5pm",
+    "timezone": "Central",
+    "exceptions": null
+  },
+  "office_address": null,
+  "services_supported": [
+    "Fire Sprinkler",
+    "Fire Alarm",
+    "Inspection",
+    "Installation",
+    "Repair"
+  ],
+  "emergency_definition": [
+    "Client: Sprinkler head leaking or burst, fire alarm going off, anything with active water or fire. That needs someone on the phone immediately.",
+    "Client: Add one more: if they say they smell smoke, that's also an emergency."
+  ],
+  "emergency_routing_rules": {
+    "primary": {
+      "name": "Dispatch",
+      "phone": "214-555-0177"
+    },
+    "secondary": {
+      "name": "On-call / Backup",
+      "phone": "214-555-0155"
+    },
+    "tertiary": {
+      "name": "Additional Fallback",
+      "phone": null
+    },
+    "transfer_timeout_seconds": 60,
+    "fallback_message": "Someone will call you back within 15 minutes."
+  },
+  "non_emergency_routing_rules": {
+    "action": "Collect name, number, and description. Confirm next-business-day followup.",
+    "notes": null
+  },
+  "call_transfer_rules": {
+    "timeout_seconds": 60,
+    "retry_order": [
+      "214-555-0177",
+      "214-555-0155"
+    ],
+    "fail_action": "Apologize and promise callback within 15 minutes"
+  },
+  "integration_constraints": [
+    "Client: We use ServiceTrade for job management. But don't create sprinkler emergency jobs automatically - our dispatcher handles that manually.",
+    "Client: Correct. Also, don't create inspection jobs automatically either. Everything goes through our coordinator."
+  ],
+  "after_hours_flow_summary": "Greet after-hours. Ask purpose. Confirm emergency. Emergency: collect name/number/address \u2192 transfer to 214-555-0101. Fail: promise callback within 15 minutes. Non-emergency: collect details, confirm next-business-day followup.",
+  "office_hours_flow_summary": "Greet caller. Ask purpose. Collect name and number. Route emergency to 214-555-0101, non-emergency to scheduling.",
+  "questions_or_unknowns": [],
+  "notes": "Auto-extracted from transcript. Review emergency_definition for completeness.",
+  "_meta": {
+    "version": "v2",
+    "generated_at": "2026-03-04T22:46:46.506108",
+    "pipeline": "Clara Automation Pipeline"
+  }
+}

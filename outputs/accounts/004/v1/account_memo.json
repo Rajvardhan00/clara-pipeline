@@ -1,0 +1,60 @@
+{
+  "account_id": "004",
+  "company_name": "ArcticFlow HVAC",
+  "primary_contact": "Sandra Peel",
+  "business_hours": {
+    "days": "Monday through Saturday",
+    "start": "7am",
+    "end": "6pm",
+    "timezone": "Mountain",
+    "exceptions": null
+  },
+  "office_address": null,
+  "services_supported": [
+    "HVAC"
+  ],
+  "emergency_definition": [
+    "Client: Data center clients call at all hours if cooling fails. That's a true emergency. Regular HVAC issues can wait.",
+    "Client: Cooling failure in a data center, complete HVAC system down in a hospital or medical facility, refrigerant leak. Those are emergencies."
+  ],
+  "emergency_routing_rules": {
+    "primary": {
+      "name": "Dispatch",
+      "phone": "602-555-0404"
+    },
+    "secondary": {
+      "name": "On-call / Backup",
+      "phone": "602-555-0411"
+    },
+    "tertiary": {
+      "name": "Additional Fallback",
+      "phone": null
+    },
+    "transfer_timeout_seconds": 30,
+    "fallback_message": "Someone will call you back within 15 minutes."
+  },
+  "non_emergency_routing_rules": {
+    "action": "Collect name, number, and description. Confirm next-business-day followup.",
+    "notes": null
+  },
+  "call_transfer_rules": {
+    "timeout_seconds": 30,
+    "retry_order": [
+      "602-555-0404",
+      "602-555-0411"
+    ],
+    "fail_action": "Apologize and promise callback within 15 minutes"
+  },
+  "integration_constraints": [
+    "Client: We use ServiceTitan. No restrictions."
+  ],
+  "after_hours_flow_summary": "Greet after-hours. Ask purpose. Confirm emergency. Emergency: collect name/number/address \u2192 transfer to 602-555-0404. Fail: promise callback within 15 minutes. Non-emergency: collect details, confirm next-business-day followup.",
+  "office_hours_flow_summary": "Greet caller. Ask purpose. Collect name and number. Route emergency to 602-555-0404, non-emergency to scheduling.",
+  "questions_or_unknowns": [],
+  "notes": "Auto-extracted from transcript. Review emergency_definition for completeness.",
+  "_meta": {
+    "version": "v1",
+    "generated_at": "2026-03-04T22:46:46.460421",
+    "pipeline": "Clara Automation Pipeline"
+  }
+}

@@ -1,0 +1,31 @@
+DEMO CALL TRANSCRIPT - Account 002
+Company: ShieldAlarm Contractors
+Date: 2024-01-16
+
+Sales Rep: Hello! Tell me about your company.
+
+Client (Maria Torres): We're ShieldAlarm - we install and service fire alarm systems for commercial buildings in Houston. About 40 calls a day.
+
+Sales Rep: What problems are you facing with call handling?
+
+Client: We need someone to triage calls. We get a lot of false alarm calls from customers that just need instructions, versus actual emergencies.
+
+Sales Rep: How do you define an emergency?
+
+Client: Fire alarm actively going off in a building, smoke detector triggered, any life-safety system failure. Also if a customer says there's visible smoke or fire.
+
+Sales Rep: Business hours?
+
+Client: Monday to Friday 7:30am to 5:30pm, Central. Sometimes Saturday mornings but not consistently.
+
+Sales Rep: After hours emergency routing?
+
+Client: Call our emergency line 713-555-0202. If no answer within 45 seconds, try manager Mike at 713-555-0211.
+
+Sales Rep: Any system integrations?
+
+Client: We use ServiceTrade too. You can create jobs for non-emergency service requests but not for active alarm emergencies.
+
+Sales Rep: What to say if transfer fails?
+
+Client: Tell them we're paging our technician and they'll receive a call within 30 minutes.
