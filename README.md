@@ -54,10 +54,6 @@ clara_pipeline/
 
 ### Step 1 — Get a FREE Gemini API Key
 
-1. Go to: https://aistudio.google.com/app/apikey
-2. Sign in with your Google account
-3. Click **"Create API Key"**
-4. Copy the key (looks like: `AIzaSy...`)
 
 
 ---
